@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Besley&display=swap");
+
+//Contants
+@import "./constants.scss";
+
+//Home page
+@import "./home/navbar.scss";
+@import "./home/slider.scss";
+@import "./home/bestseller.scss";
+@import "./home//about.scss";
+@import "./home/contactus.scss";
+@import "./home/footer.scss";
+
+//customize page
+@import "./customize/customize.scss";
+@import "./customize/baseselect.scss";
+@import "./customize/scrubselect.scss";
+@import "./customize/typeselect.scss";
+@import "./customize/fragranceselect.scss";
+@import "./customize/essentialoilselect.scss";
+@import "./customize/yourorder.scss";
+
+//products
+@import "./products/products.scss";
+
+//product
+@import "./product/product.scss";
+@import "./product/otherproducts.scss";
+
+//modals
+@import "./modals/signup.scss";
+@import "./modals/cartmodal.scss";
+
+//profile
+@import "./profile/profile.scss";
+@import "./profile/profiletab.scss";
+@import "./profile/orderstab.scss";
+
+//modal
+@import "./mainmodal.scss";
+
+//admin dash
+@import "./admin/admin.scss";
+* {
+  margin: 0;
+  //   font-family: "Besley", serif;
+}
+.link {
+  text-decoration: "none";
+}
+body {
+  position: relative;
+}
