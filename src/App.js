@@ -20,8 +20,8 @@ import Checkout from './components/Checkout/Checkout';
 import ProtectedRoute from './ProtectedRoute';
 import Profile from './components/Profile/Profile';
 import AdminProtectedRoute from './AdminProtectedRoute';
-import Admin from './components/Admin/Admin';
 import AdminLogin from './components/Admin/AdminLogin';
+import Admin from './components/Admin/Admin';
 function App() {
     const dispatch = useDispatch();
     const [showSignupModal, setShowSignupModal] = useState(false);
