@@ -6,7 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import About from './components/Home/About/About';
 import ContactUs from './components/Home/ContactUs/ContactUs';
 import HomeFooter from './components/Home/Footer/Footer';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Customize from './components/Customize/Customize';
 import Products from './components/Products/Products';
 import Product from './components/Product.js/Product';
@@ -22,6 +22,7 @@ import Profile from './components/Profile/Profile';
 import AdminProtectedRoute from './AdminProtectedRoute';
 import AdminLogin from './components/Admin/AdminLogin';
 import Admin from './components/Admin/Admin';
+import ErrorWindow from './components/ErrorWindow/ErrorWindow';
 function App() {
     const dispatch = useDispatch();
     const [showSignupModal, setShowSignupModal] = useState(false);
@@ -87,7 +88,7 @@ function App() {
     useEffect(() => {
         getAllProducts();
         if (localStorage.getItem("user")) {
-            console.log("fetching the user data.");
+            // console.log("fetching the user data.");
             getUserData().then(() => {
                 console.log("Authorized");
                 dispatch({
@@ -106,6 +107,12 @@ function App() {
             showMessageFromServer(userError);
         }
     }, [getAllProducts, dispatch, getUserData, productsError, userError, showMessageFromServer]);
+    if (productsError) {
+        return <ErrorWindow />
+    }
+    if (userError) {
+        return <ErrorWindow />
+    }
     return (
         <div className="App" >
             <Navbar scrollToAbout={scrollToAbout} scrollToContact={scrollToContact} openSignupModal={openSignupModal} openLoginModal={openLoginModal} showCart={showCart} setShowCart={setShowCart} />
@@ -163,7 +170,7 @@ function App() {
                 <Route path="/admin/login" element={
                     <AdminLogin />
                 } />
-                <Route path="*" element={<p>The page does not exist</p>} />
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </div>
     );

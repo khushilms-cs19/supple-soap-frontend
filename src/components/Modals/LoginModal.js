@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import LoadingSpinner from '../../LoadingSpinner';
 import { userConstants } from '../../redux/actions/userActions';
 
 function LoginModal(props) {
@@ -8,6 +9,7 @@ function LoginModal(props) {
     const passwordRef = useRef("");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     const setclearError = (error) => {
         setError(error);
         setTimeout(() => {
@@ -25,6 +27,7 @@ function LoginModal(props) {
                 email: emailRef.current.value,
                 password: passwordRef.current.value,
             };
+            setIsLoading(true);
             axios({
                 baseURL: "https://supple-soap-backend-api.herokuapp.com/user/login",
                 method: "POST",
@@ -39,8 +42,10 @@ function LoginModal(props) {
                     }
                 });
                 localStorage.setItem("user", data.data.token);
+                setIsLoading(false);
                 props.closeModal();
             }).catch((error) => {
+                setIsLoading(false);
                 if (error.response.status === 401) {
                     setclearError("email or passoword is incorrect");
                 }
@@ -73,7 +78,11 @@ function LoginModal(props) {
                     <p>Don't have an account <span style={{ textDecoration: "underline", cursor: "pointer" }}>Click here to Sign up!</span></p>
                 </div>
                 <div className='signup-button-container'>
-                    <button className='navbar-buttons-signin' type='submit'>Login</button>
+                    <button className='navbar-buttons-signin' type='submit'>{
+                        isLoading ?
+                            <LoadingSpinner size={1} /> :
+                            "Login"
+                    }</button>
                 </div>
             </form>
         </div>

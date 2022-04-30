@@ -81,7 +81,7 @@ function Navbar(props) {
                                         return !prevState;
                                     else
                                         return prevState;
-                                })} />
+                                })} alt="" />
                                 <p className='navbar-buttons-cart-size'>{userData.cart.regularProducts.length + userData.cart.customizedProducts.length}</p>
                                 {
                                     props.showCart && location.pathname !== "/user/checkout" &&

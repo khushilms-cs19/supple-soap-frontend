@@ -1,22 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import product1 from "../../images/product 1.jpg";
 import OtherProducts from './OtherProducts';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { userConstants } from '../../redux/actions/userActions';
 import axios from 'axios';
+import LoadingSpinner from '../../LoadingSpinner';
 
 function Product(props) {
     const products = useSelector((state) => state.products.products);
     const location = useLocation();
+    const navigate = useNavigate();
     const quantityRef = useRef(1);
     const userData = useSelector((state) => state.userData);
     const productId = location.pathname.split("/").reverse()[0];
+    const [isLoading, setIsLoading] = useState(false);
     console.log(productId);
     const selectedProduct = products.find((product) => product._id === productId);
-    console.log(selectedProduct);
-    const others = products.filter((product) => product._id !== productId);
     const dispatch = useDispatch();
+    console.log(selectedProduct);
+    if (!selectedProduct) {
+        return <Navigate to="/" />
+    }
+    const others = products.filter((product) => product._id !== productId);
     const addToCart = async () => {
         if (!userData.isAuthenticated) {
             props.openSignupModal();
@@ -35,6 +41,7 @@ function Product(props) {
                 quantity: Number(quantityRef.current.value),
             });
         }
+        setIsLoading(true);
         axios({
             method: "PUT",
             baseURL: "https://supple-soap-backend-api.herokuapp.com/user/cart/update",
@@ -52,8 +59,11 @@ function Product(props) {
                 payload: data.data.cart,
             });
             quantityRef.current.value = 1;
+            setIsLoading(false);
             props.setShowCart(true);
+
         }).catch((err) => {
+            setIsLoading(false);
             alert("There was some error", err);
         })
         // console.log(userData);
@@ -77,9 +87,14 @@ function Product(props) {
                                     <input type="number" name="quantity" defaultValue={1} min={1} max={10} ref={quantityRef} />
                                 </div>
                             </div>
+                            <p className='product-page-description-price'>₹{selectedProduct.price}</p>
                         </div>
                         <div className='product-page-description-button-container'>
-                            <button className='product-page-description-button' onClick={addToCart}>Add To Cart</button>
+                            <button className='product-page-description-button' onClick={addToCart} disabled={isLoading}>{
+                                isLoading ?
+                                    <LoadingSpinner size={1} /> :
+                                    "Add To Cart"
+                            }</button>
                         </div>
                     </div>
                 </div>

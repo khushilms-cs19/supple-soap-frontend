@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../../LoadingSpinner';
 // import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 const ProductsItem = (props) => {
     return (
@@ -10,7 +11,7 @@ const ProductsItem = (props) => {
             <div>
                 <Link to={`/products/${props.productId}`} style={{ textDecoration: "none" }} >
                     <button>View More
-                        <img src="https://img.icons8.com/fluency-systems-filled/48/000000/right.png" style={{ width: "20px", height: "20px" }} />
+                        <img src="https://img.icons8.com/fluency-systems-filled/48/000000/right.png" style={{ width: "20px", height: "20px" }} alt="" />
                     </button>
                 </Link>
             </div>
@@ -25,9 +26,11 @@ function Products() {
             <h1 className='products-page-title'>Supple's Special</h1>
             <div className='products-page-products'>
                 {
-                    products.map((product) => {
-                        return <ProductsItem key={product._id} productId={product._id} name={product.name} image={product.image} />
-                    })
+                    products.length === 0 ?
+                        <LoadingSpinner /> :
+                        products.map((product) => {
+                            return <ProductsItem key={product._id} productId={product._id} name={product.name} image={product.image} />
+                        })
                 }
             </div>
         </div>

@@ -1,17 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 // import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import { userConstants } from '../../redux/actions/userActions';
 import soap from "../../images/soap.png";
 import { useLocation, useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../LoadingSpinner';
 
 function CartDetails(props) {
     const userData = useSelector((state) => state.userData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const [razorPayOrder, setRazorPayOrder] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
     const capitalizeName = (name) => {
         return name.split(" ").map((n) => n[0].toUpperCase() + n.slice(1)).join(" ");
     }
@@ -38,7 +39,7 @@ function CartDetails(props) {
                 }
             }).then((data) => {
                 console.log(data.data.orderData);
-                setRazorPayOrder(data.data.orderData);
+                // setRazorPayOrder(data.data.orderData);
                 resolve(data.data.orderData);
             }).catch((err) => {
                 console.log(err);
@@ -52,8 +53,10 @@ function CartDetails(props) {
         //     return;
         // }
         // console.log(razorPayOrder);
+        setIsLoading(true)
         const razorpayOrderData = await createRazorpayOrder();
-        console.log(razorpayOrderData);
+        setIsLoading(false);
+        // console.log(razorpayOrderData);
         const options = {
             key: "rzp_test_VLLfMJPNaGSkxT", // Enter the Key ID generated from the Dashboard
             amount: razorpayOrderData.amount_due, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -180,7 +183,7 @@ function CartDetails(props) {
                                     <span>{`x${item.quantity}`}</span>
                                     <span>₹{item.productData.price * item.quantity}</span>
                                     {/* <DeleteIcon fontSize='medium' onClick={() => removeFromCartRegular(item.productId)} /> */}
-                                    <img src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" onClick={() => removeFromCartRegular(item.productId)} style={{ width: "30px" }} />
+                                    <img src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" onClick={() => removeFromCartRegular(item.productId)} style={{ width: "30px" }} alt="" />
                                 </div>
                             )
                         })
@@ -199,8 +202,7 @@ function CartDetails(props) {
                                             <p>{capitalizeName(item.base)}, {capitalizeName(item.scrub)}, {capitalizeName(item.type)}, {capitalizeName(item.fragrance)}, {capitalizeName(item.essentialOil)}</p>
                                             <span>{`x${item.quantity}`}</span>
                                             <span>₹{item.quantity * 200}</span>
-                                            {/* <DeleteIcon fontSize='medium' onClick={() => removeFromCartCustomized(index)} /> */}
-                                            <img src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" onClick={() => removeFromCartCustomized(index)} style={{ width: "30px" }} />
+                                            <img src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" onClick={() => removeFromCartCustomized(index)} style={{ width: "30px" }} alt="" />
                                         </div>
                                     )
                                 })
@@ -222,8 +224,12 @@ function CartDetails(props) {
                         Checkout
                     </button>
                     :
-                    <button className='cart-modal-button-checkout' disabled={userData.cart.regularProducts.length === 0 && userData.cart.customizedProducts.length === 0} onClick={displayRazorPay}>
-                        Place Order
+                    <button className='cart-modal-button-checkout' disabled={userData.cart.regularProducts.length === 0 && userData.cart.customizedProducts.length === 0 && isLoading} onClick={displayRazorPay}>
+                        {
+                            isLoading ?
+                                <LoadingSpinner size={1} /> :
+                                "Place Order"
+                        }
                     </button>
             }
         </div>

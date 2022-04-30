@@ -16,7 +16,7 @@ const OtherProductItem = (props) => {
         <div className='other-products-list-item'>
             <img src={props.image} alt="product2" />
             <p>{props.name}</p>
-            <button onClick={goToSoapMainPage}>View more<img src="https://img.icons8.com/fluency-systems-filled/48/000000/right.png" style={{ width: "20px" }} /></button>
+            <button onClick={goToSoapMainPage}>View more<img src="https://img.icons8.com/fluency-systems-filled/48/000000/right.png" style={{ width: "20px" }} alt="" /></button>
         </div>
     )
 }
@@ -26,7 +26,7 @@ function OtherProducts(props) {
         <div className='other-products-container'>
             <h2 className='other-products-title'>Other products you may like...</h2>
             <div className='other-products-list'>
-                <img src="https://img.icons8.com/material-outlined/48/000000/left.png" style={{ width: "20px" }} />
+                <img src="https://img.icons8.com/material-outlined/48/000000/left.png" style={{ width: "20px" }} alt="" />
                 <div className='other-products-list'>
                     {
                         props.products.map((product) => {
@@ -34,7 +34,7 @@ function OtherProducts(props) {
                         })
                     }
                 </div>
-                <img src="https://img.icons8.com/fluency-systems-filled/48/000000/right.png" style={{ width: "20px" }} />
+                <img src="https://img.icons8.com/fluency-systems-filled/48/000000/right.png" style={{ width: "20px" }} alt="" />
             </div>
         </div>
     )

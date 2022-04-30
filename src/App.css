@@ -862,6 +862,9 @@
 .product-page-description-title {
   font-family: "Besley", serif;
 }
+.product-page-description-price {
+  font-size: 2rem;
+}
 .product-page-description-content {
   display: flex;
   flex-direction: column;
@@ -1323,6 +1326,30 @@
   font-size: large;
 }
 
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid #554e45;
+  border-bottom: 5px solid #a79481;
+  animation: loading 1s linear 0s infinite;
+  transition: all 0.3s;
+}
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .admin-page-container {
   padding-top: 6rem;
   width: 100%;
@@ -1454,6 +1481,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 .admin-orders-type-buttons {
@@ -1519,6 +1547,18 @@
 .admin-login-card button:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+.error-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.error-window img {
+  width: 50%;
 }
 
 * {

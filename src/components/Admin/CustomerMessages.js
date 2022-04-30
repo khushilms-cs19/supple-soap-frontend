@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import LoadingSpinner from '../../LoadingSpinner';
 const capitalizeName = (name) => {
     return name.split(" ").map((n) => n[0].toUpperCase() + n.slice(1)).join(" ");
 }
@@ -124,10 +125,12 @@ const CustomerMessages = () => {
         <div>
             <div className='admin-orders-list'>
                 {
-                    customerMessageData &&
-                    customerMessageData.reverse().map((message, index) => {
-                        return <CustomerMessage item={message} key={index} index={index + 1} setCustomerMessageData={setCustomerMessageData} />
-                    })
+                    customerMessageData.length !== 0 ?
+                        customerMessageData.sort((a, b) => {
+                            return new Date(b.createdAt) - new Date(a.createdAt);
+                        }).map((message, index) => {
+                            return <CustomerMessage item={message} key={index} index={index + 1} setCustomerMessageData={setCustomerMessageData} />
+                        }) : <LoadingSpinner />
                 }
             </div>
         </div>

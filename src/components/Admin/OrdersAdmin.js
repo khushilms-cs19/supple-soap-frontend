@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import searchIcon from "../../images/searchicon.svg";
+import LoadingSpinner from '../../LoadingSpinner';
 
 const capitalizeName = (name) => {
     return name.split(" ").map((n) => n[0].toUpperCase() + n.slice(1)).join(" ");
@@ -125,12 +126,7 @@ const ProductItem = (props) => {
     )
 }
 
-const CustomizedOrderItem = (props) => {
-    return (<div className='cart-modal-item' style={{ padding: "10px", boxSizing: "border-box" }}>
-        <p>{capitalizeName(props.item.base)}, {capitalizeName(props.item.scrub)}, {capitalizeName(props.item.type)}, {capitalizeName(props.item.fragrance)}, {capitalizeName(props.item.essentialOil)}</p>
-        <span>{`x${props.item.quantity}`}</span>
-    </div>)
-}
+
 function OrdersAdmin() {
     const [ordersData, setOrdersData] = useState({});
     const [filterOption, setFilterOption] = useState("all");
@@ -195,25 +191,29 @@ function OrdersAdmin() {
                 </div>
                 <div className='admin-orders-options-search'>
                     <input placeholder='Search for a user...' />
-                    <img src={searchIcon} />
+                    <img src={searchIcon} alt="" />
                 </div>
             </div>
             <div className='admin-orders-list'>
                 {
                     activeOrderType === "supple" &&
                     (filteredOrders.length !== 0 ?
-                        filteredOrders.reverse().map((prod, index) => {
+                        filteredOrders.sort((a, b) => {
+                            return new Date(b.createdAt) - new Date(a.createdAt);
+                        }).map((prod, index) => {
                             return <OrderItem key={index} item={prod} type={activeOrderType} />
                         }) :
-                        <p>There are no orders</p>)
+                        <LoadingSpinner />)
                 }
                 {
                     activeOrderType === "customized" &&
                     (filteredCustomizedOrder.length !== 0 ?
-                        filteredCustomizedOrder.reverse().map((prod, index) => {
+                        filteredCustomizedOrder.sort((a, b) => {
+                            return new Date(b.createdAt) - new Date(a.createdAt);
+                        }).map((prod, index) => {
                             return <OrderItem type={activeOrderType} item={prod} key={index} />
                         }) :
-                        <p>There are no orders</p>)
+                        <LoadingSpinner />)
                 }
             </div>
         </div>

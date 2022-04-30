@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useRequests from '../../hooks/useRequest';
 import soap from "../../images/soap.png";
+import LoadingSpinner from '../../LoadingSpinner';
 const capitalizeName = (name) => {
     return name.split(" ").map((n) => n[0].toUpperCase() + n.slice(1)).join(" ");
 }
@@ -70,53 +71,54 @@ function Orders() {
                 <button onClick={selectCustomized} className={`order-tab-select-inner-tab-button ${activeTab === "customized" ? "profile-active-button" : ""}`}>Customized Products</button>
             </div>
             {
-                suppleProducts &&
-                <div className='order-tab-content'>
-                    {
-                        activeTab === "supple" &&
-                        <div>
-                            {
-                                suppleProducts.map((product, index) => {
-                                    return <div className='order-tab-content-container'>
-                                        <div className='order-tab-content-title'>
-                                            <p>{index + 1}. {getDate(product.createdAt)} </p>
-                                            <p>₹{product.totalAmount}</p>
+                suppleProducts.length !== 0 ?
+                    (<div className='order-tab-content'>
+                        {
+                            activeTab === "supple" &&
+                            <div>
+                                {
+                                    suppleProducts.map((product, index) => {
+                                        return <div className='order-tab-content-container'>
+                                            <div className='order-tab-content-title'>
+                                                <p>{index + 1}. {getDate(product.createdAt)} </p>
+                                                <p>₹{product.totalAmount}</p>
+                                            </div>
+                                            {
+                                                product.productDetails.map((prod, index) => {
+                                                    return (
+                                                        <OrderItem item={prod} status={product.status} key={index} />
+                                                    )
+                                                })
+                                            }
                                         </div>
-                                        {
-                                            product.productDetails.map((prod, index) => {
-                                                return (
-                                                    <OrderItem item={prod} status={product.status} key={index} />
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                })
-                            }
-                        </div>
-                    }
-                    {
-                        activeTab === "customized" &&
-                        <div>
-                            {
-                                customizedProducts.map((product, index) => {
-                                    return <div className='order-tab-content-container'>
-                                        <div className='order-tab-content-title'>
-                                            <p>{index + 1}. {getDate(product.createdAt)}</p>
-                                            {/* <p>{product.totalAmount}</p> */}
+                                    })
+                                }
+                            </div>
+                        }
+                        {
+                            activeTab === "customized" &&
+                            <div>
+                                {
+                                    customizedProducts.map((product, index) => {
+                                        return <div className='order-tab-content-container'>
+                                            <div className='order-tab-content-title'>
+                                                <p>{index + 1}. {getDate(product.createdAt)}</p>
+                                                {/* <p>{product.totalAmount}</p> */}
+                                            </div>
+                                            {
+                                                product.products.map((prod, index) => {
+                                                    return (
+                                                        <CustomizedOrderItem item={prod} status={product.status} key={index} />
+                                                    )
+                                                })
+                                            }
                                         </div>
-                                        {
-                                            product.products.map((prod, index) => {
-                                                return (
-                                                    <CustomizedOrderItem item={prod} status={product.status} key={index} />
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                })
-                            }
-                        </div>
-                    }
-                </div>
+                                    })
+                                }
+                            </div>
+                        }
+                    </div>) :
+                    <LoadingSpinner />
             }
         </div>
     )

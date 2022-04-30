@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../../LoadingSpinner';
 import { userConstants } from '../../redux/actions/userActions';
 
 function SignupModal(props) {
@@ -12,6 +13,7 @@ function SignupModal(props) {
     const passwordRef = useRef(null);
     const confirmpasswordRef = useRef(null);
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const setclearError = (error) => {
         setError(error);
@@ -37,7 +39,7 @@ function SignupModal(props) {
             password: passwordRef.current.value,
         };
         if (nameRef.current.value && emailRef.current.value && addressRef.current.value && phonenoRef.current.value && passwordRef.current.value) {
-
+            setIsLoading(true);
             axios({
                 baseURL: "https://supple-soap-backend-api.herokuapp.com/user/signup",
                 method: "POST",
@@ -52,8 +54,11 @@ function SignupModal(props) {
                     }
                 });
                 localStorage.setItem("user", data.data.token);
+                setIsLoading(false);
                 props.closeModal();
+
             }).catch((error) => {
+                setIsLoading(false);
                 if (error.response.status === 409) {
                     setclearError("User already exists");
                 }
@@ -100,7 +105,11 @@ function SignupModal(props) {
                     <p>Already have an account? <span style={{ textDecoration: "underline", cursor: "pointer" }}>Click here!</span></p>
                 </div>
                 <div className='signup-button-container'>
-                    <button className='navbar-buttons-signin' type='submit'>Sign up</button>
+                    <button className='navbar-buttons-signin' type='submit' disabled={isLoading}>{
+                        isLoading ?
+                            <LoadingSpinner size={1} /> :
+                            "Sign up"
+                    }</button>
                 </div>
             </form>
         </div>
