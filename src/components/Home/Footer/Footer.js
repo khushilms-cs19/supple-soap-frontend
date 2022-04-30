@@ -4,8 +4,10 @@ import InstaSVG from "../../../images/instagram.svg";
 import TwitterSVG from "../../../images/twitter.svg";
 import LinkdeinSVG from "../../../images/linkedin.svg";
 import FlowerIcon from "../../../images/flowericon.svg";
+import { useNavigate } from 'react-router-dom';
 
 function HomeFooter() {
+    const navigate = useNavigate();
     return (
         <div className='home-footer'>
             <h3 className='home-footer-title'>Follow</h3>
@@ -21,6 +23,7 @@ function HomeFooter() {
                 <div className='home-footer-underline-line'></div>
             </div>
             <p className='home-footer-copyright'>©2022 by supple.</p>
+            <p className='home-footer-copyright' onClick={() => navigate("/admin/dashboard")}>Admin</p>
         </div>
     )
 }
