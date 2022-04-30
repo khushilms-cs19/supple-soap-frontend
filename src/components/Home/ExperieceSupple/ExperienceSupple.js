@@ -33,14 +33,14 @@ function ExperienceSupple() {
             <div className='slider-container'>
                 <div className='slider-overlay'>
                     <div className='slider-overlay-arrows'>
-                        <img src="https://img.icons8.com/ios-filled/50/000000/back.png" onClick={goPrev} />
+                        <img src="https://img.icons8.com/ios-filled/50/000000/back.png" onClick={goPrev} alt="" />
 
-                        <img src="https://img.icons8.com/ios-filled/50/000000/forward--v1.png" onClick={goNext} />
+                        <img src="https://img.icons8.com/ios-filled/50/000000/forward--v1.png" onClick={goNext} alt="" />
                     </div>
                     <div className='slider-overlay-content'>
                         <h1>Experience Supple</h1>
                         <p>Premium Hand Made Bath Soaps</p>
-                        <button onClick={() => navigate("/products")}>Explore Now <img src="https://img.icons8.com/ios-filled/50/ffffff/forward--v1.png" style={{ width: "20px" }} /></button>
+                        <button onClick={() => navigate("/products")}>Explore Now <img src="https://img.icons8.com/ios-filled/50/ffffff/forward--v1.png" style={{ width: "20px" }} alt="" /></button>
                     </div>
                     <div className='slider-overlay-dots'>
                         <div className='slider-overlay-dots-container'>

@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useRef, useState } from 'react';
 import soaps from "../../../images/soaponhand.png";
 import axios from "axios";
 import LoadingSpinner from '../../../LoadingSpinner';

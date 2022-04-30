@@ -19,7 +19,7 @@ function SoapDescription(props) {
                         <Link to={`/products/${props.productId}`} style={{ textDecoration: "none" }}>
                             <button>
                                 Shop Now
-                                <img src="https://img.icons8.com/ios-filled/50/000000/forward--v1.png" style={{ width: "20px" }} />
+                                <img src="https://img.icons8.com/ios-filled/50/000000/forward--v1.png" style={{ width: "20px" }} alt="" />
                             </button>
                         </Link>
                         <p>{(props.item.description.split(" ").slice(0, 32)).join(" ")} . . .</p>
@@ -45,7 +45,7 @@ function SoapDescription(props) {
                         <Link to={`/products/${props.productId}`} style={{ textDecoration: "none" }}>
                             <button>
                                 Shop Now
-                                <img src="https://img.icons8.com/ios-filled/50/000000/forward--v1.png" style={{ width: "20px" }} />
+                                <img src="https://img.icons8.com/ios-filled/50/000000/forward--v1.png" style={{ width: "20px" }} alt="" />
                             </button>
                         </Link>
                         <p>{(props.item.description.split(" ").slice(0, 32)).join(" ")} . . .</p>

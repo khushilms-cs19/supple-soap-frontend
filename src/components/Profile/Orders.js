@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useRequests from '../../hooks/useRequest';
 import soap from "../../images/soap.png";
 import LoadingSpinner from '../../LoadingSpinner';
+import ErrorWindow from "../ErrorWindow/ErrorWindow";
 const capitalizeName = (name) => {
     return name.split(" ").map((n) => n[0].toUpperCase() + n.slice(1)).join(" ");
 }
@@ -56,12 +57,15 @@ function Orders() {
     });
     useEffect(() => {
         getUserOrdersSupple();
-    }, []);
+    }, [getUserOrdersSupple]);
     const selectSupple = () => {
         setActiveTab("supple");
     }
     const selectCustomized = () => {
         setActiveTab("customized");
+    }
+    if (suppleError) {
+        return <ErrorWindow />
     }
     return (
         <div className='order-tab-container'>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import BaseSelect from './components/BaseSelect';
 import { userConstants } from '../../redux/actions/userActions';
 import axios from 'axios';
@@ -117,7 +117,7 @@ function Customize() {
                             <button className="customize-card-button-next" onClick={goToNextSlide}>
                                 Next
                                 {/* <ArrowForwardRoundedIcon fontSize='small' color="white" /> */}
-                                <img src="https://img.icons8.com/ios-filled/50/ffffff/forward--v1.png" style={{ width: "20px" }} />
+                                <img src="https://img.icons8.com/ios-filled/50/ffffff/forward--v1.png" style={{ width: "20px" }} alt="" />
                             </button>
                         }
                         {

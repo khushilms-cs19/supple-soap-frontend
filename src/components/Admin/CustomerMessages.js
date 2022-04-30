@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import LoadingSpinner from '../../LoadingSpinner';
-const capitalizeName = (name) => {
-    return name.split(" ").map((n) => n[0].toUpperCase() + n.slice(1)).join(" ");
-}
+
 const getDate = (iso) => {
     const date = new Date(iso);
     let month = "";

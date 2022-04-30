@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../LoadingSpinner';
 import { userConstants } from '../../redux/actions/userActions';
 

@@ -1,7 +1,4 @@
 import React from 'react';
-import product2 from "../../images/product 2.jpg";
-import product3 from "../../images/product 3.jpg";
-import product4 from "../../images/product 4.jpg";
 // import { ChevronRightRounded } from '@mui/icons-material';
 // import { ChevronLeftRounded } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';

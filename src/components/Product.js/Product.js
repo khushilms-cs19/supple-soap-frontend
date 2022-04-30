@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import product1 from "../../images/product 1.jpg";
 import OtherProducts from './OtherProducts';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { userConstants } from '../../redux/actions/userActions';
@@ -10,7 +9,6 @@ import LoadingSpinner from '../../LoadingSpinner';
 function Product(props) {
     const products = useSelector((state) => state.products.products);
     const location = useLocation();
-    const navigate = useNavigate();
     const quantityRef = useRef(1);
     const userData = useSelector((state) => state.userData);
     const productId = location.pathname.split("/").reverse()[0];
