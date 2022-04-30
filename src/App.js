@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import BestSellers from './components/Home/BestSellers/BestSellers';
 import ExperienceSupple from './components/Home/ExperieceSupple/ExperienceSupple';
 import Navbar from './components/Navbar/Navbar';
@@ -45,14 +45,14 @@ function App() {
     const closeMessageModal = () => {
         setShowMessageModal(false);
     }
-    const showMessageFromServer = (message) => {
+    const showMessageFromServer = useCallback((message) => {
         setMessageFromServer(message);
         openMessageModal();
         setTimeout(() => {
             closeMessageModal();
             setMessageFromServer("");
         }, 3000);
-    }
+    }, []);
     const { doRequest: getAllProducts, errors: productsError } = useRequests({
         route: "/products",
         method: "get",
@@ -99,7 +99,13 @@ function App() {
                 localStorage.clear();
             });
         }
-    }, []);
+        if (productsError) {
+            showMessageFromServer(productsError);
+        }
+        if (userError) {
+            showMessageFromServer(userError);
+        }
+    }, [getAllProducts, dispatch, getUserData, productsError, userError, showMessageFromServer]);
     return (
         <div className="App" >
             <Navbar scrollToAbout={scrollToAbout} scrollToContact={scrollToContact} openSignupModal={openSignupModal} openLoginModal={openLoginModal} showCart={showCart} setShowCart={setShowCart} />
