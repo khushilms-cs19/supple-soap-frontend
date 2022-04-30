@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OtherProducts from './OtherProducts';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { userConstants } from '../../redux/actions/userActions';
 import axios from 'axios';
 import LoadingSpinner from '../../LoadingSpinner';
